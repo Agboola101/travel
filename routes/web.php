@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::post('/request/trip', 'MailController@trip')->name('trip.request');
+Route::post('/request/return', 'MailController@return')->name('trip.return');

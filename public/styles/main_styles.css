@@ -779,7 +779,7 @@ section
 {
 	width: 100%;
 	background: #FFFFFF;
-	z-index: 1;
+	z-index: -999;
 }
 .intro_background
 {

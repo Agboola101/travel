@@ -1,13 +1,15 @@
 @component('mail::message')
 Hello Admin
 
-A trip request has been made
+A trip return request has been made
 
 Departure: {{ $departure }}
 
 Arrival: {{ $arrival }}
 
-Date: {{ $date }}
+Departure Date: {{ $depart_date }}
+
+Return Date: {{ $return_date }}
 
 Class: {{ $class }}
 

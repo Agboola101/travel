@@ -8,13 +8,38 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="Travello template project">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <link rel="stylesheet" type="text/css" href="{{ asset('styles/bootstrap4/bootstrap.min.css') }}">
-        <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('styles/main_styles.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('styles/responsive.css') }}">
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datepicker.standalone.css') }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <style>
+            .active-pills .active, .active-pills .active:hover{
+                border-radius: 0 !important;
+                background-color: #647583 !important;
+            }
+
+            .labels{
+                font-size: 1.10em;
+                font-weight: 600;
+                color: #000;
+                /* color: #4C4C4D; */
+            }
+
+            button:disabled,
+                button[disabled]{
+                border: 1px solid #999999;
+                background-color: #cccccc;
+                color: #666666;
+            }
+        </style>
     </head>
     <body>
 
@@ -29,6 +54,7 @@
             @include('partials.home')
 
             
+            
             <!-- Search -->
 
             <div class="home_search">
@@ -37,37 +63,22 @@
                         <div class="col">
                             <div class="home_search_container">
                                 <div class="home_search_title mb-3">Trip Request</div>
-                                
-                                    <form action="{{ route('trip.request') }}" method="post" class="home_search_form" id="home_search_form">
-                                        @csrf
-                                        <div class="form-row">
-                                            <div class="col-md-3 mb-3">
-                                                <select class="form-control {{ ($errors->has('departure')) ? 'is-invalid' : '' }}" name="departure"> 
-                                                <option value="">select your departure</option>
-                                                <option value="los">lagos</option>
-
-
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                                <input type="text" class="form-control {{ ($errors->has('arrival')) ? 'is-invalid' : '' }}" name="arrival" placeholder="Arrival">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                                <input type="date" class="form-control {{ ($errors->has('date')) ? 'is-invalid' : '' }}" name="date" placeholder="Date">
-                                            </div>
-                                            <div class="col-md-3 mb-3">
-                                                <input type="text" class="form-control {{ ($errors->has('class')) ? 'is-invalid' : '' }}" name="class" placeholder="Class">
-                                            </div>
-
-                                             <div class="col-md-3 mb-3">
-                                                <input type="email" class="form-control {{ ($errors->has('email')) ? 'is-invalid' : '' }}" name="email" placeholder="Email">
-                                            </div>
-
+                                    <ul class="nav nav-pills mb-3 active-pills" id="pills-tab" role="tablist">
+                                        <li class="nav-item" style="background: #DFDFFF; margin-right: 10px;">
+                                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" style="color: #000; font-weight:bolder;">ONE WAY</a>
+                                        </li>
+                                        <li class="nav-item" style="background: #DFDFFF; margin-right: 10px;">
+                                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" style="color: #000; font-weight:bolder;">ROUND TRIP</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            @include('forms.one-way')
                                         </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="home_search_button">Submit</button>
+                                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                            @include('forms.return')
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +135,7 @@
                     </div>
                 </div>
             </div>
-
+    
             <!-- Destinations -->
 
             <div class="destinations" id="destinations">
@@ -466,5 +477,18 @@
         <script src="{{ asset('plugins/easing/easing.js') }}"></script>
         <script src="{{ asset('plugins/parallax-js-master/parallax.min.js') }}"></script>
         <script src="{{ asset('js/custom.js') }}"></script>
+        <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+        <script>
+            $('.one-way').datepicker(
+                {
+                    startDate : new Date(),
+                    todayHighlight : true,
+                    toggleActive: true
+                }
+            );
+            $('.one-way').val("");
+        </script>
+        @section('link-js')  
+        @show
     </body>
 </html>
